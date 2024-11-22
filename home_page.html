@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LaVin-DiT</title>
+  <link rel="icon" href="static/figs/logo.png">
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="stylesheet" href="./static/css/leaderboard.css">
+  <link rel="stylesheet" href="./static/css/video-player.css">
+
+  <!-- <link href="https://unpkg.com/tabulator-tables@5.5.2/dist/css/tabulator_bulma.min.css" rel="stylesheet">
+  <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script> -->
+  <script type="text/javascript" src="static/js/sort-table.js" defer></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/explorer-index.js"></script>
+  <script src="./static/js/question_card.js"></script>
+
+  <script src="./static/js/leaderboard_testmini.js"></script>  
+  <script src="./data/results/output_folders.js" defer></script>
+  <script src="./data/results/model_scores.js" defer></script>
+
+  <script src="./visualizer/data/data_public.js" defer></script>
+
+  <style>
+    .no-sort {
+        cursor: default;
+        pointer-events: none;
+        background-image: none !important; /* Remove the sort arrow */
+    }
+  </style>
+
+</head>
+<body>
+
+  
+
+<!-- <nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <p style="font-size:18px; display: inline; margin-right: -2px; margin-top: 12px;">🔥</p>
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://github.com/MozerWang/Loong">
+            <b>Loong</b> 
+          </a>
+          <a class="navbar-item" href="https://github.com/October2001/ProLong">
+            <b>ProLong</b> 
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav> -->
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title is-bold">
+            <img src="static/figs/logo.png" style="width:1.8em;vertical-align: middle" alt="Logo"/>
+            <span class="mmevol" style="vertical-align: middle;text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5)">LaVin-DiT</span>
+            </h1>
+          <h2 class="subtitle is-3 publication-subtitle ", style="width: 100%;margin-bottom: 20px;">
+            <strong>Large Vision Diffusion Transformer</strong>
+          </h2>
+          
+          <div class="is-size-5 publication-authors", style="width: 100%; margin: 15px auto;", >
+            <span class="author-block">Zhaoqing Wang<sup style="color:#ff5900;">1</sup><sup>,</sup><sup style="color:#6fbf73">4</sup>,</span>
+            <span class="author-block">Xiaobo Xia<sup style="color:#0ed3f6;">2</sup>,</span>
+            <span class="author-block">Runnan Chen<sup style="color:#f56d00;">1</sup><sup>,</sup></span>
+            <span class="author-block">Dongdong Yu<sup style="color:#6fbf73">4</sup></sup>,</span>
+            <span class="author-block">Changhu Wang<sup style="color:#6fbf73">4</sup><sup>*</sup>,</span>
+            <span class="author-block">Mingming Gong<sup style="color:#1a4ebf;">3</sup><sup>*</sup>,</span>
+            <span class="author-block">Tongliang Liu<sup style="color:#f56d00">1</sup><sup>*</sup><sup>,</sup>
+        </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup style="color:#ff5900">1</sup>The University of Sydney,</span>
+            <span class="author-block"><sup style="color:#0ed3f6">2</sup>National University of Singapore,</span>
+            <span class="author-block"><sup style="color:#1a4ebf">3</sup>The University of Melbourne,</span>
+            <span class="author-block"><sup style="color:#6fbf73">4</sup>AIsphere</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2411.11505"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/DerrickWang005/LaVin-DiT"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Model Link. -->
+              <span class="link-block">
+                <a href="https://huggingface.co/DerrickWang005/LaVin-DiT"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-database"></i>
+                  </span>
+                  <span>Model</span>
+                </a>
+              </span>
+              <!-- Space Link. -->
+              <span class="link-block">
+                <a href="https://huggingface.co/spaces/DerrickWang005/LaVin-DiT"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <p style="font-size:18px">🤗</p>
+                  </span>
+                  <span>Space</span>
+                </a>
+              </span> 
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container" style="margin-bottom: 2vh;">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3" style="margin-top: -5%;">Abstract</h2>
+        <div class="content has-text-justified">
+          This paper presents the Large Vision Diffusion Transformer (LaVin-DiT), a scalable and unified foundation model designed to tackle over 20 computer vision tasks in a generative framework. Unlike existing large vision models directly adapted from natural language processing architectures, which rely on less efficient autoregressive techniques and disrupt spatial relationships essential for vision data, LaVin-DiT introduces key innovations to optimize generative performance for vision tasks. First, to address the high dimensionality of visual data, we incorporate a spatial-temporal variational autoencoder that encodes data into a continuous latent space. Second, for generative modeling, we develop a joint diffusion transformer that progressively produces vision outputs. Third, for unified multi-task training, in-context learning is implemented. Input-target pairs serve as task context, which guides the diffusion transformer to align outputs with specific tasks within the latent space. During inference, a task-specific context set and test data as queries allow LaVin-DiT to generalize across tasks without fine-tuning. Trained on extensive vision datasets, the model is scaled from 0.1B to 3.4B parameters, demonstrating substantial scalability and state-of-the-art performance across diverse vision tasks. This work introduces a novel pathway for large vision foundation models, underscoring the promising potential of diffusion transformers. The code and models will be open-sourced.
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+</div>
+</section>
+
+<!-- MOTIVATION SECTION -->
+<section class="hero is-light is-small">
+  <div class="hero-body has-text-centered">
+    <h1 class="title is-1 mathvista_other">
+      <span class="mathvista_other" style="vertical-align: middle">Motivation</span>
+    </h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <div class="content has-text-justified">
+          <p>
+            Large language models (LLMs) like GPT and LLaMA have rapidly gained widespread attention and transformed the field, demonstrating the strong capability to handle a wide range of language tasks within a unified framework. This breakthrough of integrating diverse language tasks into a single large model has sparked momentum to develop similar large models for computer vision. The potential to create large vision models~(LVMs) capable of generalizing across multiple vision tasks represents a promising step toward a more versatile, scalable, and efficient approach to vision-based AI.
+          </p>
+          <p>
+            However, constructing LVMs presents greater complexity than LLMs due to the inherently diverse and high-dimensional nature of vision data, as well as the need to handle variations in scale, perspective, and lighting across tasks. To handle the problem, recent work has developed a sequential modeling method that learns from purely vision data by representing images, videos, and annotations in a unified "visual sentence" format. This method enables the model to predict sequential vision tokens from a vast dataset, entirely independent of language-based inputs. Although this method has shown promising results in diverse vision tasks, it faces two primary challenges. Specifically, the first issue concerns the efficiency limitations inherent in autoregressive sequence modeling, as it demands token-by-token prediction, which is computationally intensive for high-dimensional vision data. The second issue is the disruption of spatial coherence when converting vision data into a sequential format, which compromises the preservation of spatial dependencies crucial for performance in vision tasks.
+          </p>
+          <div class="content has-text-centered">
+            <figure class="image">
+              <img src="static/figs/intro.png" alt="motivation" width="80%"/>
+              <figcaption class="mt-2" style="font-size: 0.95em;">
+                <strong>Comparison of autoregressive and diffusion modeling.</strong> (a) In <strong>autoregressive modeling</strong>, visual data is divided into a sequence of patches and transformed into a one-dimensional sequence. The model then predicts each token sequentially from left to right and top to bottom, which is computationally intensive for high-dimensional visual data. Besides, tokens marked in <span style="color: red;">red</span> and <span style="color: blue;">blue</span> illustrate disrupted spatial dependencies, highlighting the limitations of preserving spatial coherence. (b) In contrast, <strong>diffusion modeling</strong> denoises all tokens in parallel across N timesteps, significantly improving computational efficiency and preserving essential spatial structures crucial for high-performance vision tasks.
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- METHODOLOGY SECTION -->
+<section class="hero is-light is-small">
+  <div class="hero-body has-text-centered">
+    <h1 class="title is-1 mathvista_other">
+      <span class="mathvista_other" style="vertical-align: middle">Method</span>
+    </h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <!-- Problem Setting -->
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Problem Setting</h2>
+        <div class="content has-text-justified">
+          <p>
+            Computer vision includes a series of tasks like object detection and panoptic segmentation, which are typically handled by specialized models designed for specific input-target mappings. While effective for single tasks, this specialization restricts model adaptability and scalability across multiple tasks or diverse visual data. To overcome this limitation, we aim to design a <em>conditional generative framework</em> that unifies multiple vision tasks within a single cohesive model. Specifically, given a query x (e.g., an image or a video), the framework produces the corresponding prediction ŷ to approximate the target y conditioned on a set of input-target pairs s. These conditioning pairs provide task definitions and guidance, enabling the model to flexibly adapt to different tasks according to the supplied examples. Formally, the objective is to model the conditional distribution p(y|x,s).
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Architecture Overview -->
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Architecture Overview</h2>
+        <div class="content has-text-justified">
+          <p>
+            The proposed Large Vision Diffusion Transformer (LaVin-DiT) framework integrates a spatial-temporal variational autoencoder (ST-VAE) with a joint diffusion transformer to unify multiple vision tasks. Given a vision task, e.g., panoptic segmentation, we first sample a set of input-target pairs as the task definition. Afterward, the set and other visual examples are fed into ST-VAE, which are encoded into latent representations. Subsequently, the encoded representations are patchified and unfolded into a sequential format. The set and input visual data form the conditional latent presentation z<sub>c</sub>, while the target is perturbed with random Gaussian noise, yielding a noisy latent representation z<sub>t</sub>. Both z<sub>c</sub> and z<sub>t</sub> are then put into the joint diffusion transformer (J-DiT), which denoises z<sub>t</sub> to recover a clean latent representation within the shared latent space. Lastly, the recovered latent representation is passed through the ST-VAE decoder to reconstruct the target in raw pixel space.
+          </p>
+          <figure class="image has-text-centered">
+            <img src="static/figs/architecture.png" alt="Architecture Overview"/>
+            <figcaption>
+              <strong>Overview of Large Vision Diffusion Model (LaVin-DiT).</strong> As shown in panel (a), the model initially compresses input visual data from the pixel space into a latent space, where multiple input-target pairs serve as the task context. A target is perturbed with Gaussian noise through a diffusion process. Guided by the task context and query, the Joint Diffusion Transformer (J-DiT) iteratively denoises this noisy target over N timesteps to recover a clean latent representation. The prediction is then generated via the ST-VAE decoder. Panels (b) and (c) provide architectural details of the ST-VAE and J-DiT, respectively. "Down." and "Up." indicate the downsampling and upsampling, respectively. Concatenation is represented by ⊙.
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+
+    <!-- Training & Inference -->
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Training & Inference Procedures</h2>
+        <div class="content has-text-justified">
+          <p>
+            We present algorithm flows of the proposed LaVin-DiT. It is built upon the flow matching framework. The training and inference procedures are provided in Algorithm 1 and Algorithm 2, respectively.
+          </p>
+          <div class="columns is-centered">
+            <div class="column">
+              <figure class="image has-text-centered">
+                <img src="static/figs/algo1.png" alt="Algorithm 1"/>
+              </figure>
+            </div>
+            <div class="column">
+              <figure class="image has-text-centered">
+                <img src="static/figs/algo2.png" alt="Algorithm 2"/>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- EXPERIMENTAL RESULTS SECTION -->
+<section class="hero is-light is-small">
+  <div class="hero-body has-text-centered">
+    <h1 class="title is-1">Experiments</h1>
+  </div>
+</section>
+            
+<section class="section">
+  <div class="container">
+    <!-- Main Results -->
+    <div class="columns is-centered">
+      <div class="column is-10">
+        <h2 class="title is-3 has-text-centered">Main Results</h2>
+        <div class="content">
+          <p class="has-text-justified">
+            To assess the effectiveness of our proposed method, we conduct extensive experiments across a broad range of computer vision tasks.
+          </p>
+          
+          <!-- Result Figures -->
+          <div class="mb-6">
+            <figure class="image">
+              <img src="static/figs/exp1.png" alt="Comparison Results 1"/>
+              <figcaption class="mt-2 is-size-6">
+                <strong>Comparison on foreground segmentation, single object detection, and colorization.</strong> 
+                For foreground segmentation and single object detection, we report "mIoU" (higher is better). 
+                For colorization, we report "LPIPS" and "MSE" (lower is better). 
+                Note that foreground segmentation and single object detection are <em>unseen</em> tasks during our training.
+              </figcaption>
+            </figure>
+          </div>
+
+          <div class="mb-6">
+            <figure class="image">
+              <img src="static/figs/exp2.png" alt="Comparison Results 2"/>
+              <figcaption class="mt-2 is-size-6">
+                <strong>Comparison on NYU-v2 depth estimation, surface normal estimation and ImageNet inpainting.</strong>
+                For depth estimation, we report absolute relative difference (AbsRel) and threshold accuracy (δ₁).
+                For surface normal estimation, we report mean angular error (MAE) and angle accuracy within a threshold (&lt;11.25°).
+                We report FID for inpainting. † denotes evaluations on the official released 7B model.
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scalability Analysis -->
+    <div class="columns is-centered">
+      <div class="column is-10">
+        <h2 class="title is-3 has-text-centered">Scalability & Inference Latency Analysis</h2>
+        <div class="content">
+          <p class="has-text-justified">
+            To investigate the scalability of the proposed LaVin-DiT, we conduct experiments with three model sizes: 0.1B, 1.0B, and 3.4B parameters. Besides, we compare the inference latency of LaVin-DiT and LVM (both 7B models) across increasing resolutions, demonstrating that our method is consistently more efficient.
+          </p>
+          
+          <div class="columns is-centered " style="gap: 0.1rem; justify-content: center;">
+            <div class="column is-5">
+              <figure class="image">
+                <img src="static/figs/exp3.png" alt="Training Loss Curves"/>
+              </figure>
+            </div>
+            <div class="column is-5">
+              <figure class="image">
+                <img src="static/figs/exp4.png" alt="Performance Comparison"/>
+              </figure>
+            </div>
+            <div class="column is-5">
+              <figure class="image">
+                <img src="static/figs/exp4.png" alt="Performance Comparison"/>
+              </figure>
+            </div>
+          </div>
+          
+          <p class="has-text-centered is-size-6">
+            <strong>Left & Center: </strong>Training loss curves and performance comparison for LaVin-DiT of varying model sizes. The 3.4B model demonstrates faster convergence, achieving lower training losses than smaller models. Comparison of LaVin-DiT with different parameters on colorization (MSE) and depth estimation (AbsRel).<br>
+            <strong>Right: </strong>Inference latency comparison. LaVin-DiT consistently achieves lower latency than LVM across different resolutions, as tested on an A100-80G GPU with 8 input-target pairs.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Context Length Effect -->
+    <div class="columns is-centered">
+      <div class="column is-10">
+        <h2 class="title is-3 has-text-centered">Effect of Task Context Length</h2>
+        <div class="content">
+          <p class="has-text-justified">
+            In-context learning enables the model to adapt to new tasks using a few examples, with performance generally improving as more examples are provided. We investigate this by assessing the effect of task context length across ten downstream tasks.
+          </p>
+          
+          <!-- Result Figures -->
+          <div class="mb-6">
+            <figure class="image">
+              <img src="static/figs/exp5.png" alt="Comparison Results 1"/>
+              <figcaption class="mt-2 is-size-6">
+                <strong>Effect of task context length.</strong> Longer task context can consistently improve the performance of downstream tasks.
+              </figcaption>
+            </figure>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Visualization Results -->
+    <div class="columns is-centered">
+      <div class="column is-10">
+        <h2 class="title is-3 has-text-centered">Visualization Results</h2>
+        <div class="content">
+          <p class="has-text-justified">
+            We showcase visualization results across various tasks including object detection, segmentation, pose estimation, 
+            depth estimation, and more. Additional results can be found in our paper.
+          </p>
+            <div class="box m-5">
+              <!-- <div TODO: more pic> -->
+              <div id="results-carousel" class="carousel results-carousel">  
+
+                  <div class="content has-text-centered image-wrapper" >
+                    <p class="mt-2" style="text-align: center;">
+                      <strong>Object Detection</strong>
+                    </p>
+                    <img src="static/figs/sup_vis_det.jpg" style="width: 100%;"/>
+                  </div>
+
+                  <div class="content has-text-centered image-wrapper" >
+                    <p class="mt-2" style="text-align: center;">
+                      <strong>Foreground Segmentation</strong>
+                    </p>
+                    <img src="static/figs/sup_vis_fseg.jpg" style="width: 100%;"/>
+                  </div>
+
+                  <div class="content has-text-centered image-wrapper" >
+                    <p class="mt-2" style="text-align: center;">
+                      <strong>Panoptic Segmentation</strong>
+                    </p>
+                    <img src="static/figs/sup_vis_pseg.jpg" style="width: 100%;"/>
+                  </div>
+
+                  <div class="content has-text-centered image-wrapper" >
+                    <p class="mt-2" style="text-align: center;">
+                      <strong>Pose Estimation</strong>
+                    </p>
+                    <img src="static/figs/sup_vis_pose.jpg" style="width: 100%;"/>
+                  </div>
+
+                  <div class="content has-text-centered image-wrapper" >
+                    <p class="mt-2" style="text-align: center;">
+                      <strong>Pose-to-Image Generation</strong>
+                    </p>
+                    <img src="static/figs/sup_vis_reverse_pose.jpg" style="width: 100%;"/>
+                  </div>
+
+                  <div class="content has-text-centered image-wrapper" >
+                    <p class="mt-2" style="text-align: center;">
+                      <strong>Depth Estimation</strong>
+                    </p>
+                    <img src="static/figs/sup_vis_depth.jpg" style="width: 100%;"/>
+                  </div>
+
+                  <div class="content has-text-centered image-wrapper" >
+                    <p class="mt-2" style="text-align: center;">
+                      <strong>Depth-to-Image Generation</strong>
+                    </p>
+                    <img src="static/figs/sup_vis_reverse_depth.jpg" style="width: 100%;"/>
+                  </div>
+
+                  <div class="content has-text-centered image-wrapper" >
+                    <p class="mt-2" style="text-align: center;">
+                      <strong>Surface Normal Estimation</strong>
+                    </p>
+                    <img src="static/figs/sup_vis_normal.jpg" style="width: 100%;"/>
+                  </div>
+
+                  <div class="content has-text-centered image-wrapper" >
+                    <p class="mt-2" style="text-align: center;">
+                      <strong>Normal-to-Image Generation</strong>
+                    </p>
+                    <img src="static/figs/sup_vis_reverse_normal.jpg" style="width: 100%;"/>
+                  </div>
+
+                  <div class="content has-text-centered image-wrapper" >
+                    <p class="mt-2" style="text-align: center;">
+                      <strong>Inpainting</strong>
+                    </p>
+                    <img src="static/figs/sup_vis_inpaint.jpg" style="width: 100%;"/>
+                  </div>
+
+                  <div class="content has-text-centered image-wrapper" >
+                    <p class="mt-2" style="text-align: center;">
+                      <strong>Colorization</strong>
+                    </p>
+                    <img src="static/figs/sup_vis_color.jpg" style="width: 100%;"/>
+                  </div>
+
+
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+</section>
+<section class="hero is-light is-small">
+  <div class="hero-body has-text-centered">
+    <h1 class="title is-1 mathvista_other" id="citation">Citation</h1>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <pre><code>
+      @article{run2024mmevol,
+              title={LaVin-DiT: Large Vision Diffusion Transformer},
+              author={Zhaoqing Wang, Xiaobo Xia, Runnan Chen, Dongdong Yu, Changhu Wang, Mingming Gong, Tongliang Liu},
+              journal={arXiv preprint arXiv:2411.11505},
+              year={2024}
+      }      
+</code></pre>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container" style="width: 60%;">
+  <style>
+      pre {
+        background-color: #f4f4f4;
+        padding: 5px; /* 调整padding为5px */
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        overflow-x: auto; /* 允许水平滚动 */
+    }
+    code {
+        font-family: Consolas, "Courier New", monospace;
+        color: #d63384; /* 代码文本颜色 */
+    }
+  </style>
+
+
+  </div>
+</section>
+
+
+<footer class="footer">
+  <!-- <div class="container"> -->
+    <div class="content has-text-centered">
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p style="text-align: center;">
+            This website is adapted from <a href="https://video-mme.github.io/">Video-MME</a>, licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  <!-- </div> -->
+</footer>
+
+</body>
+</html>
