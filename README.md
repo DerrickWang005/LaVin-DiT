@@ -22,10 +22,10 @@
   <a href="https://scholar.google.com.au/citations?user=EiLdZ_YAAAAJ&hl=en">Tongliang Liu</a>
 </p>
 <!-- <h3 align="center">ECCV 2024 Oral</h3> -->
-<h3 align="center"><a href="https://arxiv.org/abs/2411.11505">Paper</a> | <a href="https://derrickwang005.github.io/LaVin-DiT/">Project Page</a> | <a href="https://drive.google.com/drive/folders/14_E_5R6ojOWnLSrSVLVEMHnTiKsfddjU">Pretrained Models</a> </h3>
+<h3 align="center"><a href="https://arxiv.org/abs/2411.11505">Paper</a> | <a href="https://derrickwang005.github.io/LaVin-DiT/">Project Page</a> | <a href="https://huggingface.co/DerrickWang005/LaVin-DiT">Checkpoints</a> </h3>
 
 <ul>
-<li><b>2025/1/27 Update:</b> Release inference code and pretrained models!</li>
+<li><b>2025/1/27 Update:</b> Release inference code and checkpoints!</li>
 <li><b>2024/11/24 Update:</b> Add project homepage, <a href="https://derrickwang005.github.io/LaVin-DiT/">LaVin-DiT</a>!</li>
 </ul>
 <br>
