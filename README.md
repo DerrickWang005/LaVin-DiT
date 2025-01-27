@@ -1,4 +1,3 @@
-Zhaoqing Wang, Xiaobo Xia, Runnan Chen, Dongdong Yu, Changhu Wang, Mingming Gong, Tongliang Liu
 <div align="center">
   <p>
     <img src="asset/logo.png" alt="LaVin-DiT Logo" width="200">
