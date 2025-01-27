@@ -2,8 +2,8 @@ set -x
 
 export PYTHONPATH="."
 
-QUERY_IMAGE="test_sample/hinton_square.png"
-OUTPUT="hinton_square.png"
+QUERY_IMAGE="test_sample/hinton.png"
+OUTPUT="hinton.png"
 
 python inference.py \
     --query $QUERY_IMAGE \
