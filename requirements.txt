@@ -1,0 +1,8 @@
+einops==0.7.0
+timm==0.9.12
+diffusers==0.29.0
+torchdiffeq==0.2.4
+tqdm==4.66.5
+matplotlib==3.9.2
+safetensors==0.4.4
+click==8.1.7
