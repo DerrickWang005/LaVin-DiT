@@ -27,8 +27,16 @@
 <div align="center">
   <table>
     <tr>
-      <td><video src="asset/demo_video1.mp4" autoplay loop muted playsinline></video></td>
-      <td><video src="asset/demo_video2.mp4" autoplay loop muted playsinline></video></td>
+      <td>
+        <a href="asset/demo_video1.mp4">
+          <img src="asset/demo_video1_thumbnail.png" alt="Demo Video 1">
+        </a>
+      </td>
+      <td>
+        <a href="asset/demo_video2.mp4">
+          <img src="asset/demo_video2_thumbnail.png" alt="Demo Video 2">
+        </a>
+      </td>
     </tr>
   </table>
 </div>
@@ -37,7 +45,6 @@
 <li><b>2025/1/27 Update:</b> Release inference code and checkpoints!</li>
 <li><b>2024/11/24 Update:</b> Add project homepage, <a href="https://derrickwang005.github.io/LaVin-DiT/">LaVin-DiT</a>!</li>
 </ul>
-<br>
 </p>
 
 ## Installation
