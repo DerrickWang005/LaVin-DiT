@@ -20,7 +20,7 @@ instant_test_output/
 inference_test_output/
 SegmentationClassAug/
 
-*.png
+# *.png
 *.json
 *.diff
 *.jpg
