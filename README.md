@@ -27,16 +27,8 @@
 <div align="center">
   <table>
     <tr>
-      <td>
-        <a href="asset/demo_video1.mp4">
-          <img src="asset/demo_video1_thumbnail.png" alt="Demo Video 1">
-        </a>
-      </td>
-      <td>
-        <a href="asset/demo_video2.mp4">
-          <img src="asset/demo_video2_thumbnail.png" alt="Demo Video 2">
-        </a>
-      </td>
+      <td><img src="asset/demo_video1.gif" alt="Demo 1"></td>
+      <td><img src="asset/demo_video2.gif" alt="Demo 2"></td>
     </tr>
   </table>
 </div>
